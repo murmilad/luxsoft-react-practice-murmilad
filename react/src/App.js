@@ -19,7 +19,7 @@ function App() {
   const selections = useSelector(state => state.selections)
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(fetchBooks)
+    dispatch({type: "GET_BOOKS"})
     dispatch(fetchSelections)
   }, [])
 

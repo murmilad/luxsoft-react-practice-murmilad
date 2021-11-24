@@ -8,6 +8,8 @@ export const reducer = (state = { books: [], selections: { data: [] } }, action)
           data: action.payload
         },
       }
+    case "GET_BOOKS":
+        return {...state}
     case "FETCH_BOOKS_FULFILLED":
       return {
         ...state,
@@ -75,6 +77,7 @@ export const reducer = (state = { books: [], selections: { data: [] } }, action)
           isShow: true
         }
       }
+
     default:
       return state
   }

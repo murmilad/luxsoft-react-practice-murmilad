@@ -10,9 +10,17 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import thunk from 'redux-thunk'
 import {injectStoreToServer} from "./actions/server";
 
-const store = createStore(reducer,
-    composeWithDevTools(applyMiddleware(thunk)))
+import createSagaMiddleware from 'redux-saga'
+import rootSaga from './sagas'
 
+const sagaMiddleware = createSagaMiddleware()
+const store = createStore(reducer,
+  composeWithDevTools(
+      applyMiddleware(sagaMiddleware)
+    ));
+    
+sagaMiddleware.run(rootSaga)
+    
 injectStoreToServer(store)
 
 ReactDOM.render(
