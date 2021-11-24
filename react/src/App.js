@@ -20,7 +20,7 @@ function App() {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch({type: "GET_BOOKS"})
-    dispatch(fetchSelections)
+    dispatch({type: "GET_SELECTIONS"})
   }, [])
 
   return (

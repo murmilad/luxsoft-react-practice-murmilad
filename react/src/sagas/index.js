@@ -12,26 +12,27 @@ import {
   cancel,
 } from 'redux-saga/effects'
 
-
-
-export function* fetchBooks() {
+function* fetchResource(resource, successAction) {
   try {
-    const books = yield call(api, '/books')
-    yield put({type: "FETCH_BOOKS_FULFILLED", payload: {books}})
+    const result = yield call(api, resource)
+    yield put({ type: successAction, data: result })
   } catch (error) {
     yield put({type: "SHOW_ERROR_MODAL", payload: {error}})
   }
 }
 
-export function* getBooksTakeEvery() {
-  yield takeEvery({type: "GET_BOOKS"}, fetchBooks)
+export function* getDataTakeFork() {
+  yield take({type: "GET_BOOKS"})
+  yield fork(fetchResource, '/books', "FETCH_BOOKS_FULFILLED")
+  yield take({type: "GET_SELECTIONS"})
+  yield fork(fetchResource, '/selections', "FETCH_SELECTIONS_FULFILLED")
 }
 
 
 export default function* rootSaga() {
   yield console.log('Hello Sagas!')
   yield all([
-    getBooksTakeEvery(),
+    getDataTakeFork(),
   ])
 }
 

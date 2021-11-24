@@ -1,5 +1,7 @@
 export const reducer = (state = { books: [], selections: { data: [] } }, action) => {
   switch (action.type) {
+    case "GET_SELECTIONS":
+        return {...state}
     case "FETCH_SELECTIONS_FULFILLED":
       return {
         ...state,
