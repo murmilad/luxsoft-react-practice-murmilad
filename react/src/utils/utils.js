@@ -8,17 +8,11 @@ export function isStringEmpty(str) {
     return (!str || /^\s*$/.test(str));
 }
 
-function handleErrors(response) {
-    if (!response.ok) {
-      throw Error(response.statusText)
-    }
-    return response
-  }
-
-export const api = (resource) =>
+export const api = (resource, callback) =>
     SERVER.get(resource)
-    .then(handleErrors)
-    .then(response => response.json())
+    .then(response => {
+        return callback(response)
+    })
     .catch(error => {
-      throw Error(error.statusText)
+      throw Error(error.message)
 })
