@@ -5,21 +5,20 @@ import App from './App';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { reducer } from './reducers/reducer';
+import { createEpicMiddleware } from 'redux-observable'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import "bootstrap/dist/css/bootstrap.min.css"
-import thunk from 'redux-thunk'
 import {injectStoreToServer} from "./actions/server";
 
-import createSagaMiddleware from 'redux-saga'
-import rootSaga from './sagas'
+import {rootEpic} from './epics'
 
-const sagaMiddleware = createSagaMiddleware()
+const epicMiddleware = createEpicMiddleware()
 const store = createStore(reducer,
   
-      applyMiddleware(sagaMiddleware)
+      applyMiddleware(epicMiddleware)
     );
     
-sagaMiddleware.run(rootSaga)
+epicMiddleware.run(rootEpic)
     
 injectStoreToServer(store)
 
