@@ -10,11 +10,11 @@ import SERVER from "../actions/server";
 
 const fetchBooksEpic = action$ => action$.pipe(
   ofType('GET_BOOKS','/books'),
-  //from(api,) вызов сервера
+  //from(api..,'/books').pipe вызов сервера
   //switchMap отменяются запросч
   mergeMap(action => ajax.getJSON(SERVER.defaults.baseURL + '/books').pipe(
     map(books => ({type: 'FETCH_BOOKS_FULFILLED', payload: {books} })),
-    catchError(error => of({
+    catchError(error => of({ //of создает Observable
       type: 'SHOW_ERROR_MODAL',
       payload: {message: error.message},
     }))
