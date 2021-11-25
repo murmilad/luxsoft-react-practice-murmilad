@@ -12,6 +12,8 @@ export const reducer = (state = { books: [], selections: { data: [] } }, action)
       }
     case "GET_BOOKS":
         return {...state}
+    case "CREATE_BOOK":
+        return {...state}
     case "FETCH_BOOKS_FULFILLED":
       return {
         ...state,
@@ -19,7 +21,11 @@ export const reducer = (state = { books: [], selections: { data: [] } }, action)
           ...action.payload.books
         ]
       }
-    case "REMOVE_BOOK_FROM_SELECTION":
+      case "DELETE_BOOK":
+        return {
+          ...state
+        }
+      case "REMOVE_BOOK_FROM_SELECTION":
       return {
         ...state,
         book: {

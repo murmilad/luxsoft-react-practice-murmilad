@@ -1,5 +1,4 @@
 import { useSelector, useDispatch } from 'react-redux'
-import {removeBook} from "../../actions/book-actions";
 
 function Books() {
   const books = useSelector(state => state.books)
@@ -12,7 +11,7 @@ function Books() {
           <span><strong>{book.title}</strong> by {book.author}</span>
           <span className="pull-right">
               <button type="button" className="btn btn-outline-danger btn-sm"
-                      onClick={()=>dispatch(removeBook(book._id))}>DELETE</button>
+                      onClick={()=>dispatch({type: "DELETE_BOOK", book})}>DELETE</button>
           </span>
         </li>
       )}

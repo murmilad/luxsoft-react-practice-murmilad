@@ -17,10 +17,10 @@ function CreateBookForm() {
       errors.bookAuthor='required'
     }
     if (isObjectEmpty(errors)) {
-      dispatch(createBook({
+      dispatch({type: 'CREATE_BOOK', book: {
         title: bookName,
-        author: bookAuthor,
-      }))
+        author: bookAuthor
+      }})
       setBookName("")
       setBookAuthor("")
       setErrors({})
