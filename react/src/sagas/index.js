@@ -22,8 +22,6 @@ function* fetchResource(resource, callback, successAction) {
 }
 
 export function* getDataTakeFork() {
-  yield take("GET_BOOKS")
-  yield fork(fetchResource, '/books', response => {return {books: response.data}}, "FETCH_BOOKS_FULFILLED")
   yield take("GET_SELECTIONS")
   yield fork(fetchResource, '/selections', response =>  response.data  , "FETCH_SELECTIONS_FULFILLED")
 }

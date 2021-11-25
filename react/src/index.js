@@ -12,14 +12,19 @@ import {injectStoreToServer} from "./actions/server";
 
 import {rootEpic} from './epics'
 
+import createSagaMiddleware from 'redux-saga'
+import rootSaga from './sagas'
+
+const sagaMiddleware = createSagaMiddleware()
 const epicMiddleware = createEpicMiddleware()
 const store = createStore(reducer,
   
-      applyMiddleware(epicMiddleware)
+      applyMiddleware(sagaMiddleware, epicMiddleware)
     );
     
+sagaMiddleware.run(rootSaga)
 epicMiddleware.run(rootEpic)
-    
+
 injectStoreToServer(store)
 
 ReactDOM.render(
