@@ -2,6 +2,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import {useState} from "react";
 import {createSelection} from "../../actions/selection-actions";
 import {isObjectEmpty, isStringEmpty} from "../../utils/utils";
+import { useForm } from "react-hook-form";
+import { yupResolver } from
+'@hookform/resolvers/yup';
+import * as yup from "yup";
 
 function CreateSelectionForm() {
   const dispatch = useDispatch()
@@ -9,16 +13,16 @@ function CreateSelectionForm() {
   const [selectionAuthor, setSelectionAuthor] = useState("")
   const [selectionEmail, setSelectionEmail] = useState("")
 
-  const [errors, setErrors] = useState({})
-  const onSubmit = async () => {
-    let errors = {}
-    if (isStringEmpty(selectionName)) {
-      errors.selectionName = 'required'
-    }
-    if (isStringEmpty(selectionAuthor)) {
-      errors.selectionAuthor = 'required'
-    }
-    if (isObjectEmpty(errors)) {
+  const { register, handleSubmit, formState} = useForm({
+    resolver: yupResolver(yup.object().shape({
+      selectionName: yup.string().required(),
+      selectionAuthor: yup.string().required(),
+      selectionEmail: yup.string().required(),
+     })),
+  })
+  const { errors } = formState;
+
+  const onSubmit = async ({ selectionName, selectionAuthor, selectionEmail }) => {
       dispatch({type: 'CREATE_SELECTION', selection: {
         title: selectionName,
         author: selectionAuthor,
@@ -27,31 +31,24 @@ function CreateSelectionForm() {
       setSelectionName("")
       setSelectionAuthor("")
       setSelectionEmail("")
-      setErrors({})
-    } else {
-      setErrors(errors)
-    }
   }
 
   return (
     <div className="create_selection_form_wrapper">
-      <form className="create_selection_form row" onSubmit={e=>{e.preventDefault(); onSubmit()}}>
+      <form className="create_selection_form row" onSubmit={handleSubmit(onSubmit)}>
         <div className="create_selection_input col-md-4" >
           <label htmlFor="selectionName" className="form-label">Selection Title</label>
-          <input type="text" className="form-control" id="selectionName" value={selectionName}
-                 onChange={e=>setSelectionName(e.target.value)} />
+          <input type="text" className="form-control"  {...register("selectionName")} />
           {errors.selectionName && <span className="form_error">This field is required</span>}
         </div>
         <div className="create_selection_input col-md-4">
           <label htmlFor="selectionAuthor" className="form-label">Selection Author</label>
-          <input type="text" className="form-control" id="selectionAuthor" value={selectionAuthor}
-                 onChange={e=>setSelectionAuthor(e.target.value)} />
+          <input type="text" className="form-control" {...register("selectionAuthor")} />
           {errors.selectionAuthor && <span className="form_error">This field is required</span>}
         </div>
         <div className="create_selection_input col-md-4">
           <label htmlFor="selectionAuthor" className="form-label">E-mail</label>
-          <input type="text" className="form-control" id="selectionAuthor" value={selectionEmail}
-                 onChange={e=>setSelectionEmail(e.target.value)} />
+          <input type="text" className="form-control" {...register("selectionEmail")}  />
           {errors.selectionEmail && <span className="form_error">This field is required</span>}
         </div>
         <div className="create_selection_form_add_btn_wrapper">
