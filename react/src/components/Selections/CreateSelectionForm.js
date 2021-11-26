@@ -19,11 +19,11 @@ function CreateSelectionForm() {
       errors.selectionAuthor = 'required'
     }
     if (isObjectEmpty(errors)) {
-      dispatch(createSelection({
+      dispatch({type: 'CREATE_SELECTION', selection: {
         title: selectionName,
         author: selectionAuthor,
         email: selectionEmail
-      }))
+      }})
       setSelectionName("")
       setSelectionAuthor("")
       setSelectionEmail("")

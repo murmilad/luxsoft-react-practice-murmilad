@@ -1,7 +1,7 @@
 export const reducer = (state = { books: [], selections: { data: [] } }, action) => {
   switch (action.type) {
     case "GET_SELECTIONS":
-        return {...state}
+      return { ...state }
     case "FETCH_SELECTIONS_FULFILLED":
       return {
         ...state,
@@ -11,9 +11,9 @@ export const reducer = (state = { books: [], selections: { data: [] } }, action)
         },
       }
     case "GET_BOOKS":
-        return {...state}
+      return { ...state }
     case "CREATE_BOOK":
-        return {...state}
+      return { ...state }
     case "FETCH_BOOKS_FULFILLED":
       return {
         ...state,
@@ -21,15 +21,21 @@ export const reducer = (state = { books: [], selections: { data: [] } }, action)
           ...action.payload.books
         ]
       }
-      case "DELETE_BOOK":
-        return {
-          ...state
-        }
-      case "REMOVE_BOOK_FROM_SELECTION":
+    case "DELETE_BOOK":
+      return {
+        ...state
+      }
+    case "DELETE_SELECTION":
+      return {
+        ...state
+      }
+    case "ADD_BOOK_TO_SELECTION":
+      return { ...state }
+    case "REMOVE_BOOK_FROM_SELECTION":
       return {
         ...state,
         book: {
-          selectionId: action.payload.selectionId, 
+          selectionId: action.payload.selectionId,
           bookId: action.payload.bookId
         }
       }

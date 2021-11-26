@@ -11,7 +11,7 @@ function BookInSelection(props) {
     <div className="selection_list_item">
       <span><strong>{book?.title}</strong> by {book?.author}</span>
       <Button
-        onClick={() => dispatch(removeBookFromSelection(bookId, selectionId))}
+        onClick={() => dispatch({type: 'DELETE_BOOK_FROM_SELECTION', bookSelection : {bookId, selectionId}})}
         variant="outline-danger">Delete</Button>
     </div>
   )

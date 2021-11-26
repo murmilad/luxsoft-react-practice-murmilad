@@ -12,7 +12,7 @@ function AddBookToSelectionForm() {
 
   const onSubmit = () => {
     if (bookId && selectionId) {
-      dispatch(addBookToSelection(bookId, selectionId))
+      dispatch({type: 'ADD_BOOK_TO_SELECTION', bookSelection : {bookId, selectionId}})
     } else {
       dispatch(showError("Please select book and selection"))
     }

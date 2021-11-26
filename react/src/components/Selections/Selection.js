@@ -18,7 +18,7 @@ const Selection = (props) => {
           {item.books && item?.books.map((el, i) => {
             return <BookInSelection selectionId={item._id} bookId={el[0]} key={i} />
           })}
-          <Button onClick={() => dispatch(removeSelection(item._id))}
+          <Button onClick={() => dispatch({type: 'DELETE_SELECTION', selectionId: item._id})}
             className="remove_selection_btn"
             variant="outline-danger">
               Delete selection
