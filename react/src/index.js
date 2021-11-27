@@ -25,6 +25,8 @@ const store = createStore(reducer,
 sagaMiddleware.run(rootSaga)
 epicMiddleware.run(rootEpic)
 
+    
+    
 injectStoreToServer(store)
 
 ReactDOM.render(

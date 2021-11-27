@@ -1,16 +1,12 @@
-{"title":"Java","author":"Javist","_id":"1EcN2dBFThBvHujn"}
+{"title":"","author":"","_id":"0VLFZya6TC7kFeJf"}
+{"type":"CREATE_BOOK","book":{"title":"sdkfl","author":"lsdfse"},"_id":"5eTJ8WjP1E1fKYK7"}
 {"author":"Vladimir","title":"JS","_id":"B4Li8k79uFLthHkf"}
 {"author":"Pushkin","title":"Eugene Onegin","_id":"DBHxziigSiIQsAGY"}
 {"author":"Shevchenko","title":"Kobzar","_id":"Hr7co2zEo72bDDKk"}
 {"title":"Timur","author":"React","_id":"WKiD2xJqCnlrIzir"}
 {"title":"The crime and the punishment","author":"Dostoevsky","_id":"XjjvGXjgr2qRG2bc"}
 {"title":"JUnit 5","author":"Catalin Tudose","_id":"XkjWxcMOiJ71tDm6"}
-{"author":"Lermontov","title":"Mzyri","_id":"xqoikHbOfO5qnhm7"}
-{"$$deleted":true,"_id":"1EcN2dBFThBvHujn"}
-{"type":"CREATE_BOOK","book":{"title":"sdkfl","author":"lsdfse"},"_id":"5eTJ8WjP1E1fKYK7"}
-{"type":"CREATE_BOOK","book":{"title":"Nkdfls","author":"Nkkef"},"_id":"xxAGznmE4E4EP93z"}
 {"type":"CREATE_BOOK","book":{"title":"sdfsf","author":"eeee"},"_id":"oS6tA23zZlRfTRiZ"}
 {"title":"NLdf","author":"lssfks","_id":"r7vYKMoAZ2ERcM8E"}
-{"title":"","author":"","_id":"0VLFZya6TC7kFeJf"}
-{"title":"Lkflsfdkslf","author":"NNNN","_id":"4rxfgyZKnioLZtRx"}
-{"$$deleted":true,"_id":"4rxfgyZKnioLZtRx"}
+{"author":"Lermontov","title":"Mzyri","_id":"xqoikHbOfO5qnhm7"}
+{"type":"CREATE_BOOK","book":{"title":"Nkdfls","author":"Nkkef"},"_id":"xxAGznmE4E4EP93z"}

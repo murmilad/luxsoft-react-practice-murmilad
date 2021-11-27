@@ -9,7 +9,7 @@ function ErrorModal() {
       { errorModal?.isShow && <div className="modal_overlay" /> }
       <Modal show={errorModal?.isShow} onHide={() => dispatch({ type: "HIDE_ERROR_MODAL" })}>
         <Modal.Header closeButton>
-          <Modal.Title>Error</Modal.Title>
+          <Modal.Title role="error-message" >Error</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
