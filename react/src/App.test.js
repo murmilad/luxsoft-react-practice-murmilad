@@ -1,4 +1,3 @@
-import '@testing-library/jest-dom'
 import App from './App';
 
 import React from 'react';
@@ -13,7 +12,7 @@ configure({ adapter: new Adapter() })
 const mockStore = configureMockStore([thunk]);
 
 describe('App', () => {
-  it('should render a startup component if startup is not complete',  () => {
+  it('Enzyme Test is book loaded by mock',  () => {
     const store = mockStore({
       startup: { complete: false },
       selections: {
