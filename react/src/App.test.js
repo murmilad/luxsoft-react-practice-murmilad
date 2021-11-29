@@ -17,7 +17,7 @@ configure({ adapter: new Adapter() })
 const mockStore = configureMockStore([thunk]);
 
 describe('App', () => {
-  it('should render a startup component if startup is not complete', async () => {
+  it('should render a startup component if startup is not complete',  () => {
     const store = mockStore({
       startup: { complete: false },
       selections: {
@@ -27,13 +27,12 @@ describe('App', () => {
         {"title":"Java","author":"Javist","_id":"1EcN2dBFThBvHujn"}
        ],
     });
-    const wrapper = mount(
+    const wrapper =  mount(
       <Provider store={store}>
         <App />
       </Provider>
     )
-
-    expect(await wrapper.find('delete-button')).toBeDefined()
+    expect(wrapper.exists('[data-testid="delete-button"]')).toEqual(true);
   })
 })
 
