@@ -10,6 +10,7 @@ import { createWaitForElement } from 'enzyme-wait';
 
 configure({ adapter: new Adapter() })
 
+
 const mockStore = configureMockStore([thunk]);
 
 const waitForSample = createWaitForElement('.book-list');
