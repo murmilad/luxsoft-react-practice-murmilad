@@ -24,8 +24,4 @@ jobs:
       - run: |
           npm ci
           npx lerna bootstrap
-      - name: Run tests # Run tests of all packages
-      - run: npx lerna exec npm run test
-
-        
-      
+      - run: npx lerna exec npm run test      
