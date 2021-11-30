@@ -18,7 +18,7 @@ const server = setupServer(
     return res(ctx.json([{"title":"Java test","author":"Javist","_id":"testBook"}]))
   }),
 )
-
+/* 
 beforeAll(() => server.listen())
 afterEach(() => server.resetHandlers())
 afterAll(() => server.close())
@@ -35,3 +35,4 @@ test('handles server Error', async () => {
 
   expect(screen.getByRole('error-message'))
 })
+ */

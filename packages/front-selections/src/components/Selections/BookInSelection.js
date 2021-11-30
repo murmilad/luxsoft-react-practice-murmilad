@@ -17,4 +17,4 @@ function BookInSelection(props) {
   )
 }
 
-aexport default BookInSelection
+export default BookInSelection
