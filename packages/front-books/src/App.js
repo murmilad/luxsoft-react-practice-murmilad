@@ -1,11 +1,7 @@
 import React, { lazy, useEffect, Suspense } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Accordion } from 'react-bootstrap';
 
 //components
-import Selection from './components/Selections/Selection';
-import AddBookToSelectionForm from './components/Selections/AddBookToSelectionForm';
-import CreateSelectionForm from './components/Selections/CreateSelectionForm'
 import ErrorModal from "./components/Errors/ErrorModal"
 
 //styles

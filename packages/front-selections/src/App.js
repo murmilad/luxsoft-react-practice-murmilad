@@ -10,8 +10,6 @@ import ErrorModal from "./components/Errors/ErrorModal"
 
 //styles
 import './App.css';
-import CreateBookForm from "./components/Books/CreateBookForm";
-const Books = lazy(() => import( "./components/Books/Books"));
 
 function App() {
   const selections = useSelector(state => state.selections)

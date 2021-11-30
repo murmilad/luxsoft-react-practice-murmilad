@@ -1,0 +1,4 @@
+44 error Error: Command failed with exit code 128: git push --follow-tags --no-verify --atomic origin main
+44 error fatal: «https://github.com/React-Training-Courses/react-practice-murmilad/» недоступно: Failed to connect to github.com port 443 after 128950 ms: Время ожидания соединения истекло
+44 error     at makeError (/home/alex/git/react-practice-murmilad/node_modules/execa/lib/error.js:60:11)
+44 error     at handlePromise (/home/alex/git/react-practice-murmilad/node_modules/execa/index.js:118:26)
