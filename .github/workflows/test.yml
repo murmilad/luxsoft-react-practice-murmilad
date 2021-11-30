@@ -4,8 +4,10 @@
 name: Test CI Books
 
 on:
+  push:
+    branches: [ main ]
   pull_request:
-    branches: [master]
+    branches: [ main ]
 
 jobs:
   build:
