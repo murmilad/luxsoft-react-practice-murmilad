@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { lazy, useEffect, Suspense } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Accordion } from 'react-bootstrap';
 
@@ -11,9 +11,7 @@ import ErrorModal from "./components/Errors/ErrorModal"
 //styles
 import './App.css';
 import CreateBookForm from "./components/Books/CreateBookForm";
-import Books from "./components/Books/Books";
-import {fetchBooks} from "./actions/book-actions";
-import {fetchSelections} from "./actions/selection-actions";
+const Books = lazy(() => import( "./components/Books/Books"));
 
 function App() {
   const selections = useSelector(state => state.selections)
@@ -28,7 +26,9 @@ function App() {
     <div className="wrapper books_wrapper">
       <h2 className="page_title">Books</h2>
       <CreateBookForm />
-      <Books/>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Books/>
+      </Suspense>
     </div>
     <div className="wrapper selections_wrapper">
       <h2 className="page_title">Selections</h2>

@@ -6,10 +6,13 @@ import { mount, configure } from 'enzyme'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk';
 import Adapter from 'enzyme-adapter-react-16';
+import { createWaitForElement } from 'enzyme-wait';
 
 configure({ adapter: new Adapter() })
 
 const mockStore = configureMockStore([thunk]);
+
+const waitForSample = createWaitForElement('.book-list');
 
 describe('App', () => {
   it('Enzyme Test is book loaded by mock',  () => {
@@ -27,7 +30,9 @@ describe('App', () => {
         <App />
       </Provider>
     )
-    expect(wrapper.exists('[data-testid="delete-button"]')).toEqual(true);
+    waitForSample(wrapper).then(wrapper => 
+      expect( wrapper.exists('[data-testid="delete-button"]')).toEqual(true)
+    );
   })
 })
 
