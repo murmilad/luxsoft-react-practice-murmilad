@@ -23,5 +23,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Upgrade NPM
+        run: npm install -g npm
       - run: npx lerna bootstrap
       - run: npx lerna exec npm run test      
