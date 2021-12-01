@@ -1,0 +1,28 @@
+version: "3.6"
+services:
+  # BACK
+  back:
+    build:
+      context: ./packages/back
+    ports:
+      - 7000:7000
+
+  # FRONT BOOKS
+  front-books:
+    build:
+      context: ./packages/front-books
+    depends_on:
+      - back
+    ports:
+      - 3000:3000
+
+  # FRONT SELECTIONS
+  front-selections:
+    build:
+      context: ./packages/front-selections
+    depends_on:
+      - back
+    ports:
+      - 3001:3001
+volumes:
+  etw-data-volume:
