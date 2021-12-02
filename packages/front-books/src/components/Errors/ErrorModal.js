@@ -1,23 +1,23 @@
 import { Button, Modal } from 'react-bootstrap'
-import { useSelector, useDispatch } from 'react-redux'
+import { errorVar } from '../../cache';
+import { useReactiveVar } from '@apollo/client'
 
 function ErrorModal() {
-  const errorModal = useSelector(state => state.modal)
-  const dispatch = useDispatch()
+  const errorModal = useReactiveVar(errorVar);
   return (
     <>
-      { errorModal?.isShow && <div className="modal_overlay" /> }
-      <Modal show={errorModal?.isShow} onHide={() => dispatch({ type: "HIDE_ERROR_MODAL" })}>
+      { errorModal && <div className="modal_overlay" /> }
+      <Modal show={errorModal} onHide={() => errorVar("")}>
         <Modal.Header closeButton>
           <Modal.Title role="error-message" >Error</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
-          <p>{errorModal?.message}</p>
+          <p>{errorModal}</p>
         </Modal.Body>
 
         <Modal.Footer>
-          <Button onClick={() => { dispatch({ type: "HIDE_ERROR_MODAL" }) }} variant="secondary">Close</Button>
+          <Button onClick={() => {errorVar("")}} variant="secondary">Close</Button>
         </Modal.Footer>
       </Modal>
     </>

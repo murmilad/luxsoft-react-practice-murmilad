@@ -1,14 +1,18 @@
 import {useState} from "react";
-import {createBook} from "../../actions/book-actions";
-import {useDispatch} from "react-redux";
-import {isStringEmpty, isObjectEmpty} from "../../utils/utils"
 import {Formik, Field, Form} from "formik"
 import * as yup from "yup"
+import { useQuery, useMutation, useReactiveVar } from '@apollo/client'
+import { ADD_BOOK_MUTATION } from './graphql'
+import { errorVar } from '../../cache';
 
 function CreateBookForm() {
-  const dispatch = useDispatch()
   const [bookName, setBookName] = useState("")
   const [bookAuthor, setBookAuthor] = useState("")
+
+  const errorModal = useReactiveVar(errorVar);
+  const [createBook, {  }] = useMutation(ADD_BOOK_MUTATION, {
+    onError: (event) => errorVar(event) 
+  })
 
   return (
     <Formik
@@ -17,7 +21,7 @@ function CreateBookForm() {
         bookAuthor: '',
       }}
       onSubmit ={ values => {
-        dispatch({type: 'CREATE_BOOK', book: {
+        createBook({book: {
           title: values.bookName,
           author: values.bookAuthor
         }})
