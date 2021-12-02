@@ -8,12 +8,18 @@ function Books() {
   const errorModal = useReactiveVar(errorVar);
   const { data, loading, error, refetch } = useQuery(GET_ALL_BOOKS, {
     onError: (event) => {
-      return errorVar(event)
+      return errorVar(event.message)
     } 
   })
   const [deleteBook, { }] = useMutation(DELETE_BOOK_MUTATION, {
-    onCompleted: () => refetch(),
-    onError: (event) => errorVar(event) 
+    refetchQueries: [
+      {
+      query: GET_ALL_BOOKS,
+      },
+    ],
+    onError: (event) => {
+      return errorVar(event.message)
+    } 
   })
 
   if (loading) return <p>Loading...</p>
@@ -27,7 +33,7 @@ function Books() {
         <span><strong>{book.title}</strong> by {book.author}</span>
         <span className="pull-right">
             <button type="button" data-testid="delete-button"  className="btn btn-outline-danger btn-sm"
-                    onClick={()=>deleteBook(book._id)}>DELETE</button>
+                    onClick={()=>deleteBook({ variables: { bookId: book._id } })}>DELETE</button>
         </span>
       </li>
     )}

@@ -23,8 +23,8 @@ module.exports = {
   },
   Mutation: {
     addBook: async (_, { book }, { dataSources }) => {
-      const newBook = await authorsAPI.addBook(book);
-      await pubsub.publish(BOOK_ADDED, { bookAdded: newBook });
+      const newBook = await booksAPI.addBook(book);
+//      await pubsub.publish(BOOK_ADDED, { bookAdded: newBook });
       if (newBook) return newBook;
     },
     editBook: async (_, { bookId, book }, { dataSources }) => {

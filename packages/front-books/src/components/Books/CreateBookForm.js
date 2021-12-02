@@ -2,7 +2,7 @@ import {useState} from "react";
 import {Formik, Field, Form} from "formik"
 import * as yup from "yup"
 import { useQuery, useMutation, useReactiveVar } from '@apollo/client'
-import { ADD_BOOK_MUTATION } from './graphql'
+import { ADD_BOOK_MUTATION , GET_ALL_BOOKS} from './graphql'
 import { errorVar } from '../../cache';
 
 function CreateBookForm() {
@@ -11,7 +11,12 @@ function CreateBookForm() {
 
   const errorModal = useReactiveVar(errorVar);
   const [createBook, {  }] = useMutation(ADD_BOOK_MUTATION, {
-    onError: (event) => errorVar(event) 
+    refetchQueries: [
+      {
+      query: GET_ALL_BOOKS,
+      },
+    ],
+    onError: (event) => errorVar(event.message) 
   })
 
   return (
@@ -21,10 +26,10 @@ function CreateBookForm() {
         bookAuthor: '',
       }}
       onSubmit ={ values => {
-        createBook({book: {
+        createBook({ variables: {book: {
           title: values.bookName,
           author: values.bookAuthor
-        }})
+        }}})
         setBookName("")
         setBookAuthor("")
       }}

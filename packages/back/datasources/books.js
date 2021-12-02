@@ -10,14 +10,14 @@ module.exports = {
     db.books.find({title: book.title, author: book.author}, function (err, docs) {
       if (docs.length > 0) {
           if (err) {
-            reject({err})
+            reject(err)
           } else {
-            reject({err: "BookInSelection with the same title and author already exists"})
+            reject( "BookInSelection with the same title and author already exists")
           }
       } else {
-          db.books.insert(req.body, function (err, newDocs) {
+          db.books.insert({title: book.title, author: book.author}, function (err, newDocs) {
               if (err) {
-                reject({err})
+                reject(err)
               } else {
                 resolve(newDocs)
               }
@@ -31,9 +31,8 @@ module.exports = {
     db.books.find(query, function (err, docs) {
       if (err) {
         console.log('err ' + err)    
-        reject({err})
+        reject(err)
       } else {
-        console.log('res ' + JSON.stringify(docs))    
         resolve(docs)
       }
     })
@@ -42,7 +41,7 @@ module.exports = {
   getBook: (id)  => new Promise((resolve, reject) =>{
     db.books.find({_id: id}, function (err, docs) {
       if (err) {
-        reject({err})
+        reject(err)
       } else {
         resolve(docs[0])
       }
@@ -52,7 +51,7 @@ module.exports = {
   editBook: (id, book)  => new Promise((resolve, reject) =>{
     db.books.update({_id: id}, book, function (err, numReplaced) {
       if (err) {
-        reject({err})
+        reject(err)
       } else {
         resolve(book)
       }
@@ -60,18 +59,19 @@ module.exports = {
   }),
 
   deleteBook: (id)  => new Promise((resolve, reject) =>{
-    db.selections.find({books: { $in: [id]}}, (err, docs) => {
+    console.log('delete book ' + JSON.stringify(id))    
+    db.books.find({_id: id}, (err, docs) => {
       if (docs.length>0) {
-          console.log("Can't be removed: book is used in selection "+docs[0].title)
-          reject({err: "Can't be removed: book is used in selection "+docs[0].title})
+        db.books.remove({_id: id}, {}, err => {
+          if (err) {
+            reject(err)
+          } else {
+            resolve(SUCCESS)
+          }
+        })
       } else {
-          db.books.remove({_id: id}, {}, err => {
-              if (err) {
-                reject({err})
-              } else {
-                resolve(SUCCESS)
-              }
-          })
+        console.log("Can't be removed: book is used in selection "+docs[0].title)
+        reject("Can't be removed: book is used in selection "+docs[0].title)
       }
     })
   }),
