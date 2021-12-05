@@ -1,17 +1,25 @@
-import { useDispatch, useSelector } from 'react-redux'
-import {useState} from "react";
-import {createSelection} from "../../actions/selection-actions";
-import {isObjectEmpty, isStringEmpty} from "../../utils/utils";
+import { useState } from 'react'
 import { useForm } from "react-hook-form";
 import { yupResolver } from
 '@hookform/resolvers/yup';
 import * as yup from "yup";
+import { useQuery, useMutation } from '@apollo/client'
+import { ADD_SELECTION_MUTATION, GET_ALL_SELECTIONS } from './graphql'
+import { errorVar } from '../../cache';
 
 function CreateSelectionForm() {
-  const dispatch = useDispatch()
   const [selectionName, setSelectionName] = useState("")
   const [selectionAuthor, setSelectionAuthor] = useState("")
   const [selectionEmail, setSelectionEmail] = useState("")
+
+  const [createSelection, {  }] = useMutation(ADD_SELECTION_MUTATION, {
+    refetchQueries: [
+      {
+      query: GET_ALL_SELECTIONS,
+      },
+    ],
+    onError: (event) => errorVar(event.message) 
+  })
 
   const { register, handleSubmit, formState} = useForm({
     resolver: yupResolver(yup.object().shape({
@@ -23,11 +31,11 @@ function CreateSelectionForm() {
   const { errors } = formState;
 
   const onSubmit = async ({ selectionName, selectionAuthor, selectionEmail }) => {
-      dispatch({type: 'CREATE_SELECTION', selection: {
-        title: selectionName,
-        author: selectionAuthor,
-        email: selectionEmail
-      }})
+    createSelection({ variables: {selection: {
+      title: selectionName,
+      author: selectionAuthor,
+      email: selectionEmail
+    }}})
       setSelectionName("")
       setSelectionAuthor("")
       setSelectionEmail("")

@@ -12,7 +12,7 @@ module.exports = {
       return await booksAPI.getBooks({});
     },
     allSelections: async (_, {}, { dataSources }) => {
-      return await selectionsAPI.getSelections();
+      return await selectionsAPI.getSelections({});
     },
     getBook: async (_, { id }, { dataSources }) => {
       return await booksAPI.getBook(id);

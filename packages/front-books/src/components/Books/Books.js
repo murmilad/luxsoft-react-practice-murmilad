@@ -5,7 +5,6 @@ import { errorVar } from '../../cache';
 var isNil = require('lodash.isnil');
 
 function Books() {
-  const errorModal = useReactiveVar(errorVar);
   const { data, loading, error, refetch } = useQuery(GET_ALL_BOOKS, {
     onError: (event) => {
       return errorVar(event.message)

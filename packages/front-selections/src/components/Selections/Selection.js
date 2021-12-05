@@ -1,11 +1,22 @@
 import { Accordion, Button } from "react-bootstrap"
-import { useDispatch } from 'react-redux'
-import {removeSelection} from "../../actions/selection-actions";
 import BookInSelection from "./BookInSelection";
+import { errorVar } from '../../cache';
+import { useQuery, useMutation } from '@apollo/client'
+import { DELETE_SELECTION_MUTATION, GET_ALL_SELECTIONS  } from './graphql'
 
 const Selection = (props) => {
   const { item } = props
-  const dispatch = useDispatch()
+  const [deleteSelection, { }] = useMutation(DELETE_SELECTION_MUTATION, {
+    refetchQueries: [
+      {
+      query: GET_ALL_SELECTIONS,
+      },
+    ],
+    onError: (event) => {
+      return errorVar(event.message)
+    } 
+  })
+
   return (
     <>
       <Accordion.Item eventKey={props.itemKey}>
@@ -18,7 +29,7 @@ const Selection = (props) => {
           {item.books && item?.books.map((el, i) => {
             return <BookInSelection selectionId={item._id} bookId={el[0]} key={i} />
           })}
-          <Button onClick={() => dispatch({type: 'DELETE_SELECTION', selectionId: item._id})}
+          <Button onClick={() => deleteSelection({ variables: { selectionId: item._id } })}
             className="remove_selection_btn"
             variant="outline-danger">
               Delete selection

@@ -2,32 +2,30 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { createStore, applyMiddleware } from 'redux';
-import { Provider } from 'react-redux';
-import { reducer } from './reducers/reducer';
-import { createEpicMiddleware } from 'redux-observable'
-import { composeWithDevTools } from 'redux-devtools-extension'
 import "bootstrap/dist/css/bootstrap.min.css"
-import {injectStoreToServer} from "./actions/server";
-
-import {rootEpic} from './epics'
 
 
-const epicMiddleware = createEpicMiddleware()
-const store = createStore(reducer,
-  
-      applyMiddleware(epicMiddleware)
-    );
+import {
+  ApolloClient,
+  InMemoryCache,
+  HttpLink,
+  NormalizedCacheObject,
+  ApolloProvider,
+  } from '@apollo/client'
+  const cache = new InMemoryCache()
+  const link = new HttpLink({
+    uri: 'http://localhost:7000/',
+  })
+  const client = new ApolloClient({
+  cache,
+  link,
+})
     
-epicMiddleware.run(rootEpic)
-
     
-    
-injectStoreToServer(store)
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  document.getElementById('root')
+  <ApolloProvider client={client}>
+  <App />
+  </ApolloProvider>,
+    document.getElementById('root')
 );
