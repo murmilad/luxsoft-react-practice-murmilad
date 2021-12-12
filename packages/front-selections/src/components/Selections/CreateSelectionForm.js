@@ -8,9 +8,6 @@ import { ADD_SELECTION_MUTATION, GET_ALL_SELECTIONS } from './graphql'
 import { errorVar } from '../../cache';
 
 function CreateSelectionForm() {
-  const [selectionName, setSelectionName] = useState("")
-  const [selectionAuthor, setSelectionAuthor] = useState("")
-  const [selectionEmail, setSelectionEmail] = useState("")
 
   const [createSelection, {  }] = useMutation(ADD_SELECTION_MUTATION, {
     refetchQueries: [
@@ -21,7 +18,7 @@ function CreateSelectionForm() {
     onError: (event) => errorVar(event.message) 
   })
 
-  const { register, handleSubmit, formState} = useForm({
+  const { register, handleSubmit, formState, setValue} = useForm({
     resolver: yupResolver(yup.object().shape({
       selectionName: yup.string().required(),
       selectionAuthor: yup.string().required(),
@@ -36,9 +33,9 @@ function CreateSelectionForm() {
       author: selectionAuthor,
       email: selectionEmail
     }}})
-      setSelectionName("")
-      setSelectionAuthor("")
-      setSelectionEmail("")
+    setValue("selectionName", "")
+    setValue("selectionAuthor", "")
+    setValue("selectionEmail", "")
   }
 
   return (

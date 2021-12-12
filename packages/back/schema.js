@@ -7,8 +7,8 @@ module.exports = gql`
 
 type Book {
     _id: ID!
-    author: String!
-    title: String!
+    author: String
+    title: String
   }
 
   type Selection {

@@ -25,6 +25,9 @@ export const GET_ALL_SELECTIONS = gql`
       title
       author
       email
+      books {
+        _id
+      }
     }
   }
 `

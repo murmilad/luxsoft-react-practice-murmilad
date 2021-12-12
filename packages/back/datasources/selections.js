@@ -10,7 +10,7 @@ module.exports = {
       if (err) {
         reject(err)
       } else {
-        resolve(newDocs[0])
+        resolve(newDocs)
       }
   })
 }),
@@ -20,6 +20,7 @@ module.exports = {
       if (err) {
         reject(err)
       } else {
+        console.log('selections ' + JSON.stringify(docs))    
         resolve(docs)
       }
     })
@@ -46,13 +47,13 @@ module.exports = {
   }),
 
   addBooksToSelection: (id, books)  => new Promise((resolve, reject) =>{
-    db.selections.find({books: { $in: [id]}}, (err, docs) => {
+    db.selections.find({_id: id}, (err, docs) => {
         if (docs.length>1) {
             console.log("Too much selections with id "+id)
             reject( "Too much selections with id "+id)
         } else if (docs.length == 1) {
           db.selections.update({_id: id},
-            { $addToSet: {books} }, function (err) {
+            { $addToSet: {books: books[0]} }, function (err) {
             if (err) {
               reject(err)
             } else {
@@ -66,14 +67,15 @@ module.exports = {
       })
     }),
 
-  deleteBookFromSelection: (id, book_id)  => new Promise((resolve, reject) =>{
-    db.selections.find({_id: id}, (err, docs) => {
+  deleteBookFromSelection: (selectionId, bookId)  => new Promise((resolve, reject) =>{
+    console.log('delege book from selection selectionId=' + selectionId + ' bookId=' + bookId)    
+    db.selections.find({_id: selectionId}, (err, docs) => {
       if (docs.length>1) {
-          console.log("Too much selections with id "+id)
-          reject( "Too much selections with id "+id)
+          console.log("Too much selections with id "+selectionId)
+          reject( "Too much selections with id "+selectionId)
       } else if (docs.length == 1) {
-        db.selections.update({_id: id},
-          { $pull: {books: book_id} }, err => {
+        db.selections.update({_id: selectionId},
+          { $pull: {books: {_id: bookId}} }, err => {
               if (err) {
                 reject(err)
               } else {
@@ -81,8 +83,8 @@ module.exports = {
               }
         })
       } else {
-        console.log("Not found selections with id "+id)
-        reject( "Not found selections with id "+id)
+        console.log("Not found selections with id "+selectionId)
+        reject( "Not found selections with id "+selectionId)
       }
     })
 }),

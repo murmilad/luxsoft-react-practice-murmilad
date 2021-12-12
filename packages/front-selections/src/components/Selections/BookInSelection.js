@@ -18,7 +18,7 @@ function BookInSelection(props) {
     onError: (event) => errorVar(event.message) 
   })
 
-  const { data, error } = useQuery<getBook>(GET_BOOK_BY_ID, {
+  const { data, error } = useQuery(GET_BOOK_BY_ID, {
     variables: { id: bookId },
     onError: (event) => {
       return errorVar(event.message)

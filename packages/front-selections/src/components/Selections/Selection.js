@@ -27,7 +27,9 @@ const Selection = (props) => {
         </Accordion.Header>
         <Accordion.Body>
           {item.books && item?.books.map((el, i) => {
-            return <BookInSelection selectionId={item._id} bookId={el[0]} key={i} />
+            if (el._id) {
+              return <BookInSelection selectionId={item._id} bookId={el._id} key={i} />
+            }
           })}
           <Button onClick={() => deleteSelection({ variables: { selectionId: item._id } })}
             className="remove_selection_btn"

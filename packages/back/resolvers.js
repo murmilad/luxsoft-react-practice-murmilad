@@ -42,7 +42,7 @@ module.exports = {
       return await selectionsAPI.editSelection(selectionId, selection);
     },
     addBooksToSelection: async (_, { selectionId, books }, { dataSources }) => {
-      const selection = await selectionsAPI.addBookToSelection(
+      const selection = await selectionsAPI.addBooksToSelection(
         selectionId,
         books
       );
@@ -50,7 +50,7 @@ module.exports = {
       return null;
     },
     deleteBookFromSelection: async (_, { selectionId, bookId }, { dataSources }) => {
-      const selection = await selectionsAPI.addBookToSelection(
+      const selection = await selectionsAPI.deleteBookFromSelection(
         selectionId,
         bookId
       );
@@ -58,7 +58,7 @@ module.exports = {
       return null;
     },
     deleteSelection: async (_, { selectionId }, { dataSources }) => {
-      return await selectionsAPI.deleteAuthor(selectionId);
+      return await selectionsAPI.deleteSelection(selectionId);
     },
   },
   Subscription: {
